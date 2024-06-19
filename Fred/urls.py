@@ -1,7 +1,7 @@
 from django.urls import path
-from Fred.views import Contact,Home,Index
+from Fred.views import contact,about,home
 urlpatterns = [
-    path('Contact',Contact),
-    path('Home',Home),
-    path('',Index),
+    path('contact',contact),
+    path('about',about),
+    path('',home),
 ]
