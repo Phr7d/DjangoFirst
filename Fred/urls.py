@@ -1,7 +1,11 @@
 from django.urls import path
-from Fred.views import Contact,Home,Index
+from Fred.views import *
+
+app_name = 'Shahin'
+
 urlpatterns = [
-    path('Contact',Contact),
-    path('Home',Home),
-    path('',Index),
+    path('contact',contact,name='contact'),
+    path('about',about,name='about'),
+    path('',home,name='index'),
+    path('test',test_view,name='test'),
 ]
