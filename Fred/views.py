@@ -6,8 +6,16 @@ def contact(request):
     # return render(request,'index.html')
     return render(request,'website/contact.html')
 
-def Home(request):
-    return HttpResponse("<h1>Homeeeeme</h1>")
+def about(request):
+    # return render(request,'index.html')
+    return render(request,'website/about.html')
 
-def Index(request):
-    return HttpResponse("<h1>Indexxxxxx</h1>")
+def home(request):
+    # return render(request,'index.html')
+    return render(request,'website/index.html')
+
+def test_view(request):
+    # return render(request,'index.html')
+    return render(request,'website/test.html')
+
+
