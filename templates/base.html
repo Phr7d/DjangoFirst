@@ -58,12 +58,12 @@
         <div class="container main-menu">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
-                    <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+                    <a href="{% url 'Fred:index' %}"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li><a href="{% url 'Shahin:index' %}">Home</a></li>
-                        <li><a href="{% url 'Shahin:about' %}">About</a></li>
+                        <li><a href="{% url 'Fred:index' %}">Home</a></li>
+                        <li><a href="{% url 'Fred:about' %}">About</a></li>
                         <li class="menu-has-children"><a href="">Blog</a>
                             <ul>
                                 <li><a href="{% url 'blog:index' %}">Blog Home</a></li>
