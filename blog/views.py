@@ -10,8 +10,10 @@ def blog_view(request):
     context = {'postss': posts}
     return render(request,'blog/blog-home.html',context)
 
-def blog_single(request):
-    return render(request,'blog/blog-single.html')
+def blog_single(request,pid):
+    posts = get_object_or_404(Post,pk=pid)
+    context = {'post': posts}
+    return render(request,'blog/blog-single.html',context)
 
 def test_view(request,pid):
     #get post from slug
