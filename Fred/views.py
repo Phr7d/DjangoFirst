@@ -14,8 +14,6 @@ def home(request):
     # return render(request,'index.html')
     return render(request,'website/index.html')
 
-def test_view(request):
-    # return render(request,'index.html')
-    return render(request,'website/test.html')
+
 
 
