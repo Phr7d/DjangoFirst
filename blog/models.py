@@ -1,13 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 # Create your models here.
 class Post(models.Model):
-    #image
-    #author
+    image = models.ImageField(upload_to='blog/images/', default='blog/images/default.jpg')
+    favimage = models.ImageField(upload_to='blog/images/', default='blog/images/default.jpg')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
     #tag
-    #category
+    category = models.ManyToManyField(Category)
     counted_view = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
     pulished_date = models.DateTimeField(null=True)

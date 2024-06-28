@@ -15,19 +15,26 @@ def blog_view(request):
 
 def blog_single(request,pid):
     try:
-        posts = Post.objects.filter(Q(status=True) & Q(id=pid) & Q(pulished_date__lte=timezone.now()))
-        if posts:
-            #get post from slug
-            posts = Post.objects.get(id = pid)
-            #add to count view
-            posts.counted_view = posts.counted_view + 1
-            #Save counted view
-            posts.save()
+        posts = Post.objects.filter(Q(status=True) & Q(id=pid) & Q(pulished_date__lte=timezone.now())).get()
         context = {'post': posts}
+        try:
+            nextPost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__gt=pid))[:1].get()
+            context['nextPost'] = nextPost
+        except:
+            nextPost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__lt=pid))[:1].get()
+            context['nextPost'] = nextPost
+        try:
+            prePost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__lt=pid)).latest('id')
+            context['prePost'] = prePost
+        except :
+            prePost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__gt=pid)).latest('id')
+            context['prePost'] = prePost
+        #get post from slug
+        posts = Post.objects.get(id = pid)
+        #add to count view
+        posts.counted_view = posts.counted_view + 1
+        #Save counted view
+        posts.save()
         return render(request,'blog/blog-single.html',context)
     except:
         posts = get_object_or_404(Post,pk=0)
-
-# def test_view(request,pid):
-#     context = {'postss': posts}
-#     return render(request,'website/test.html',context)
