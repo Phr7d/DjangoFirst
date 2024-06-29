@@ -21,14 +21,12 @@ def blog_single(request,pid):
             nextPost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__gt=pid))[:1].get()
             context['nextPost'] = nextPost
         except:
-            nextPost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__lt=pid))[:1].get()
-            context['nextPost'] = nextPost
+            context['nextPost'] = 'End'
         try:
             prePost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__lt=pid)).latest('id')
             context['prePost'] = prePost
         except :
-            prePost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__gt=pid)).latest('id')
-            context['prePost'] = prePost
+            context['prePost'] = 'First'
         #get post from slug
         posts = Post.objects.get(id = pid)
         #add to count view
