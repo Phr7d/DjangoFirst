@@ -7,11 +7,15 @@ from django.db.models import Q
 
 # Create your views here.
 
-def blog_view(request):
+def blog_view(request,cat_name=None):
     #Show posts from ordering time published date
     posts = Post.objects.filter(Q(status=True) & Q(published_date__lte=timezone.now())).order_by('-published_date')
+    if cat_name:
+        posts = posts.filter(category__name=cat_name)
     context = {'postss': posts}
     return render(request,'blog/blog-home.html',context)
+
+
 
 def blog_single(request,pid):
     try:
