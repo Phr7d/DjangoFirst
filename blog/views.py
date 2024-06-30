@@ -8,22 +8,22 @@ from django.db.models import Q
 # Create your views here.
 
 def blog_view(request):
-    #Show posts from ordering time pulished date
-    posts = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()))
+    #Show posts from ordering time published date
+    posts = Post.objects.filter(Q(status=True) & Q(published_date__lte=timezone.now())).order_by('-published_date')
     context = {'postss': posts}
     return render(request,'blog/blog-home.html',context)
 
 def blog_single(request,pid):
     try:
-        posts = Post.objects.filter(Q(status=True) & Q(id=pid) & Q(pulished_date__lte=timezone.now())).get()
+        posts = Post.objects.filter(Q(status=True) & Q(id=pid) & Q(published_date__lte=timezone.now())).get()
         context = {'post': posts}
         try:
-            nextPost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__gt=pid))[:1].get()
+            nextPost = Post.objects.filter(Q(status=True) & Q(published_date__lte=timezone.now()) & Q(id__gt=pid))[:1].get()
             context['nextPost'] = nextPost
         except:
             context['nextPost'] = 'End'
         try:
-            prePost = Post.objects.filter(Q(status=True) & Q(pulished_date__lte=timezone.now()) & Q(id__lt=pid)).latest('id')
+            prePost = Post.objects.filter(Q(status=True) & Q(published_date__lte=timezone.now()) & Q(id__lt=pid)).latest('id')
             context['prePost'] = prePost
         except :
             context['prePost'] = 'First'

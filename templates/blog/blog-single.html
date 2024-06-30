@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% load static %}
-
 {% load blog_tags %}
 {% block content %}
 
@@ -40,13 +38,13 @@
 							{% for tag in post.category.all %}
 							<li><a href="#">{{tag.name}} {% if not forloop.last %},{% endif %}</a></li>
 							{% endfor %}
-							
+
 						</ul>
 						<div class="user-details row">
 							<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">Mark wiens</a> <span
 									class="lnr lnr-user"></span></p>
-							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.pulished_date | date:"D d M Y"}}</a> <span
-									class="lnr lnr-calendar-full"></span></p>
+							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.pulished_date | date:"D d M
+									Y"}}</a> <span class="lnr lnr-calendar-full"></span></p>
 							<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_view}} Views</a> <span
 									class="lnr lnr-eye"></span></p>
 							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span
@@ -73,10 +71,12 @@
 							class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 							{% if prePost != 'First'%}
 							<div class="thumb">
-								<a href="{% url 'blog:single' pid=prePost.id %}"><img class="img-fluid" src="{{prePost.favimage.url}}" alt=""></a>
+								<a href="{% url 'blog:single' pid=prePost.id %}"><img class="img-fluid"
+										src="{{prePost.favimage.url}}" alt=""></a>
 							</div>
 							<div class="arrow">
-								<a href="{% url 'blog:single' pid=prePost.id %}"><span class="lnr text-white lnr-arrow-left"></span></a>
+								<a href="{% url 'blog:single' pid=prePost.id %}"><span
+										class="lnr text-white lnr-arrow-left"></span></a>
 							</div>
 							<div class="detials">
 								<p>Prev Post</p>
@@ -96,10 +96,12 @@
 								</a>
 							</div>
 							<div class="arrow">
-								<a href="{% url 'blog:single' pid=nextPost.id %}"><span class="lnr text-white lnr-arrow-right"></span></a>
+								<a href="{% url 'blog:single' pid=nextPost.id %}"><span
+										class="lnr text-white lnr-arrow-right"></span></a>
 							</div>
 							<div class="thumb">
-								<a href="{% url 'blog:single' pid=nextPost.id %}"><img class="img-fluid" src="{{nextPost.favimage.url}}" alt=""></a>
+								<a href="{% url 'blog:single' pid=nextPost.id %}"><img class="img-fluid"
+										src="{{nextPost.favimage.url}}" alt=""></a>
 							</div>
 							{% endif %}
 						</div>
@@ -233,9 +235,9 @@
 				<div class="widget-wrap">
 					{% include 'blog/blog-search.html'%}
 					{% include 'blog/blog-writer.html'%}
-					{% include 'blog/blog-popular-post.html'%}
-					{% include 'blog/blog-ads.html'%}
-					{% include 'blog/blog-post-category.html'%}
+					{% blog_popular_post %}
+					{% include 'blog/blog-ads.html' %}
+					{% postcategory %}
 					{% include 'blog/blog-newsletter.html'%}
 					{% include 'blog/blog-tags.html'%}
 				</div>
