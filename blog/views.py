@@ -12,7 +12,7 @@ def blog_view(request,cat_name=None):
     posts = Post.objects.filter(Q(status=True) & Q(published_date__lte=timezone.now())).order_by('-published_date')
     if cat_name:
         posts = posts.filter(category__name=cat_name)
-    context = {'posts': posts}
+    context = {'postss': posts}
     return render(request,'blog/blog-home.html',context)
 
 
