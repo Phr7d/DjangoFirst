@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from blog.models import Post
 from django.utils import timezone
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -14,6 +15,15 @@ def blog_view(request,**kwargs):
         posts = posts.filter(category__name=kwargs['cat_name'])
     if kwargs.get('author_username'):
         posts = posts.filter(author__username=kwargs['author_username'])
+    
+    posts = Paginator(posts, 2)
+    try:
+        pageNum = request.GET.get('page')
+        posts = posts.get_page(pageNum)
+    except PageNotAnInteger:
+        posts = post.page(1)
+    except EmptyPage:
+        posts = post.page(post.num_pages)
     context = {'postss': posts}
     return render(request,'blog/blog-home.html',context)
 
