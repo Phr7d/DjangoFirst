@@ -31,6 +31,26 @@
     <link rel="stylesheet" href="{% static 'css/animate.min.css'%}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css'%}">
     <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showPopup(message) {
+            Swal.fire({
+                title: 'آفرین',
+                text: message,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }
+        function showPopup2(message) {
+            Swal.fire({
+                title: 'خطا رخ داده است.',
+                text: message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -120,12 +140,13 @@
                             For business professionals caught between high OEM price and mediocre print and graphic
                             output.
                         </p>
-                        <div id="mc_embed_signup">
+                        <div>
                             <form target="_blank"
-                                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="subscription relative">
+                                action="{% url 'Fred:newsletter' %}"
+                                method="post" class="subscription relative">
+                                {% csrf_token %}
                                 <div class="input-group d-flex flex-row">
-                                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''"
+                                    <input name="email" placeholder="Email Address" onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Email Address '" required="" type="email">
                                     <button class="btn bb-btn"><span class="lnr lnr-location"></span></button>
                                 </div>
@@ -170,7 +191,19 @@
         </div>
     </footer>
     <!-- End footer Area -->
-
+    {% if success %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                showPopup("فرم شما با موفقیت ثبت گردید.!");
+            });
+        </script>
+        {% else %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                showPopup2("خطا در ارسال اطلاعات!");
+            });
+        </script>
+    {% endif %}
     <script src="{% static 'js/vendor/jquery-2.2.4.min.js'%}"></script>
     <script src="{% static 'js/popper.min.js'%}"></script>
     <script src="{% static 'js/vendor/bootstrap.min.js'%}"></script>
@@ -188,3 +221,4 @@
 </body>
 
 </html>
+
