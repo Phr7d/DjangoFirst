@@ -1,23 +1,35 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from Fred.forms import *
-
-# Create your views here.
+from Fred.models import *
 
 def contact(request):
-    # return render(request,'index.html')
-    return render(request,'website/contact.html')
-
-def about(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            print('Done')
+            instance = form.save(commit=False)
+            instance.name = 'unknown'
+            instance.save()
+            return render(request,'website/contact.html',{'form':form, 'success': True})
         else:
-            print('notDone')
-    form = ContactForm()
+            return render(request,'website/contact.html',{'form':form, 'success': False})
+        
+    else :
+        form = ContactForm()
+        return render(request,'website/contact.html',{'form':form})
+
+def newsletter(request):
+    if request.method == 'POST':
+        form = NewsLetterFrom(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request,'website/index.html',{'form':form, 'success': True})
+        else:
+            return render(request,'website/index.html',{'form':form, 'error': True})
+
+def about(request):
     # return render(request,'index.html')
-    return render(request,'website/about.html',{'form':form})
+    return render(request,'website/about.html')
 
 def home(request):
     # return render(request,'index.html')
