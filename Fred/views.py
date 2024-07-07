@@ -3,6 +3,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 from Fred.forms import *
 from Fred.models import *
 
+
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -25,7 +27,7 @@ def newsletter(request):
             form.save()
             return render(request,'website/index.html',{'form':form, 'success': True})
         else:
-            return render(request,'website/index.html',{'form':form, 'error': True})
+            return render(request,'website/index.html',{'form':form, 'success': False})
 
 def about(request):
     # return render(request,'index.html')
