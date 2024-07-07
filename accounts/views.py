@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 
@@ -16,10 +17,10 @@ def login_view(request):
         #check if username is email or not
         if '@' in request.POST['username'] :
             email = request.POST['username']
-            username = User.objects.get(email=email)
-            username = username.username
+            user = User.objects.get(email=email)
+            user = user.username
             password = request.POST['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=user, password=password)
         else :
             username = request.POST['username']
             print(username)
@@ -30,7 +31,8 @@ def login_view(request):
             login(request, user)
             return redirect('/')
         else:
-            return HttpResponse('Invalid username or password')
+            print('1')
+            return render(request,'accounts/login.html',{'error': True})
     return render(request,'accounts/login.html')
 
 @login_required

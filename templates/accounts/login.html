@@ -22,6 +22,24 @@
 
     <!--Custom styles-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <script>
+        function showPopup(message) {
+            Swal.fire({
+                title: 'آفرین',
+                text: message,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }
+        function showPopup2(message) {
+            Swal.fire({
+                title: 'خطا رخ داده است.',
+                text: message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -67,5 +85,17 @@
         </div>
     </div>
 </body>
-
+{% if success %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        showPopup("فرم شما با موفقیت ثبت گردید.!");
+    });
+</script>
+{% elif error %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        showPopup2("خطا در ارسال اطلاعات!");
+    });
+</script>
+{% endif %}
 </html>

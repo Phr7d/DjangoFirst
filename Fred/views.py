@@ -14,7 +14,7 @@ def contact(request):
             instance.save()
             return render(request,'website/contact.html',{'form':form, 'success': True})
         else:
-            return render(request,'website/contact.html',{'form':form, 'success': False})
+            return render(request,'website/contact.html',{'form':form, 'error': True})
         
     else :
         form = ContactForm()
@@ -27,7 +27,7 @@ def newsletter(request):
             form.save()
             return render(request,'website/index.html',{'form':form, 'success': True})
         else:
-            return render(request,'website/index.html',{'form':form, 'success': False})
+            return render(request,'website/index.html',{'form':form, 'error': True})
 
 def about(request):
     # return render(request,'index.html')
