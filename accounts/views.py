@@ -31,7 +31,6 @@ def login_view(request):
             login(request, user)
             return redirect('/')
         else:
-            print('1')
             return render(request,'accounts/login.html',{'error': True})
     return render(request,'accounts/login.html')
 
@@ -57,3 +56,22 @@ def signup_view(request):
         return render(request,'accounts/signup.html',context)
     else :
         return redirect('/')
+
+
+def forget_password_view(request):
+    if request.user.is_authenticated:
+        return redirect('/')  # Redirect to home page if user is already logged in
+    if request.method == 'POST':
+        email = request.POST['email']
+        try:
+            user = User.objects.get(email=email)
+            new_password = User.objects.make_random_password()
+            user.set_password(new_password)
+            print(new_password) # Save the new password to the database.
+            user.save()
+            # send email notification
+            return render(request,'accounts/login.html') 
+        except User.DoesNotExist:
+            print('User does not exist')
+            return render(request,'accounts/forget-password.html',{'error': True})
+    return render(request,'accounts/forget-password.html')
