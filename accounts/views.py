@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
+from .form import UserCreationForm
+from django.core.mail import EmailMessage
 
 
 
@@ -44,11 +46,15 @@ def signup_view(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = UserCreationForm(request.POST)
+            print(form.is_valid())
             if form.is_valid():
                 form.save()
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password1')
                 user = authenticate(username=username, password=password)
+                email = form.cleaned_data.get('email')
+                email = EmailMessage('Create User',f"Hello {username}.\nWelcome to our site", to=[email])
+                email.send()
                 login(request, user)
                 return redirect('/')
         form = UserCreationForm()
@@ -69,6 +75,8 @@ def forget_password_view(request):
             user.set_password(new_password)
             print(new_password) # Save the new password to the database.
             user.save()
+            email = EmailMessage('Password Change',f"New Password is : {new_password} ", to=[email])
+            email.send()
             # send email notification
             return render(request,'accounts/login.html') 
         except User.DoesNotExist:
