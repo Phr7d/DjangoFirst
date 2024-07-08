@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-i)nt&r(+%y*my!#ldvth3$aa=lc-a92vz%p3sq)hu%+w@v$cik
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'www.homatelecom.com']
 
 # INSTALLED_APPS = []
 
@@ -24,7 +24,7 @@ DATABASES = {
 }
 
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATICFILES_DIRS = [
