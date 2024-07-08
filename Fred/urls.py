@@ -7,5 +7,6 @@ urlpatterns = [
     path('contact',contact,name='contact'),
     path('about',about,name='about'),
     path('newsletter',newsletter,name='newsletter'),
+    path('maintenance/', maintenance_mode, name='maintenance'),
 
 ]

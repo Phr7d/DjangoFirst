@@ -38,5 +38,5 @@ def home(request):
     return render(request,'website/index.html')
 
 
-
-
+def maintenance_mode(request):
+    return render(request, 'website/maintenance.html')
