@@ -7,14 +7,10 @@ from mysite.settings import *
 SECRET_KEY = 'django-insecure-i)nt&r(+%y*my!#ldvth3$aa=lc-a92vz%p3sq)hu%+w@v$cik'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-<<<<<<< HEAD
-DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1', 'homatelecom.com', 'www.homatelecom.com']
-=======
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
->>>>>>> parent of 1fe6614 (pushing)
 
 # INSTALLED_APPS = []
 
