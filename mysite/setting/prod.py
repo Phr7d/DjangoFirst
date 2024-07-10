@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-i)nt&r(+%y*my!#ldvth3$aa=lc-a92vz%p3sq)hu%+w@v$cik
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['homatelecom.com','www.homatelecom.com','127.0.0.1']
 
 # INSTALLED_APPS = []
 
